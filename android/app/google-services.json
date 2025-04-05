@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "150565159439",
+    "project_id": "new-looks",
+    "storage_bucket": "new-looks.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:150565159439:android:6d2457f19b30c620b5597a",
+        "android_client_info": {
+          "package_name": "com.example.new_looks"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJvJ7TyyivXlg4cIUVqcodJyEoVSlJWKQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
