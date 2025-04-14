@@ -194,6 +194,42 @@ class RegistrationScreen extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 20,
+                  ),
+                  GestureDetector(
+                    onTap: (){
+                      print("login via google");
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+                      decoration: BoxDecoration(
+                          color: Color(0xffFFFFFF),
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(10)
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              SvgPicture.asset(
+                                AssetUtils.GoogleLogo,
+                                height: 30,
+                                width: 30,
+                              ),
+                              SizedBox(width: 10,),
+                              Text("Login via Google",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w500
+                                ),
+                              ),
+                            ],
+                          ),
+                          Icon(Icons.arrow_forward)
+                        ],
+                      ),
+                    ),
                   )
                 ],
               ),

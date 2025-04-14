@@ -85,7 +85,7 @@ class ProfileScreen extends StatelessWidget {
                       onTap: () async {
                         var pref = await SharedPreferences.getInstance();
                         await pref.clear();
-                        Get.offAll(RegistrationScreen());
+                        Get.offAll(() => RegistrationScreen());
                       },
                     ),
                   ],

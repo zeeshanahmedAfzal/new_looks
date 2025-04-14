@@ -52,6 +52,7 @@ dependencies:
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
   path_provider: ^2.1.5
+  device_preview: ^1.2.0
 
 dev_dependencies:
   flutter_test:
@@ -93,6 +94,29 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
+  fonts:
+    - family: Poppins
+      fonts:
+        - asset: resources/fonts/Poppins-Black.ttf
+          weight: 900
+        - asset: resources/fonts/Poppins-ExtraBold.ttf
+          weight: 800
+        - asset: resources/fonts/Poppins-Bold.ttf
+          weight: 700
+        - asset: resources/fonts/Poppins-SemiBold.ttf
+          weight: 600
+        - asset: resources/fonts/Poppins-Medium.ttf
+          weight: 500
+        - asset: resources/fonts/Poppins-Regular.ttf
+          weight: 400
+        - asset: resources/fonts/Poppins-Light.ttf
+          weight: 300
+        - asset: resources/fonts/Poppins-ExtraLight.ttf
+          weight: 200
+        - asset: resources/fonts/Poppins-Thin.ttf
+          weight: 100
+
+
   # fonts:
   #   - family: Schyler
   #     fonts:

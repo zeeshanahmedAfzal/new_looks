@@ -107,32 +107,61 @@ class LoginScreen extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 20),
                 child: Center(
                   child: Text(
-                    "or login with",
+                    "OR",
                     style: TextStyle(
                       color: CustomColor.black,
-                      fontWeight: FontWeight.w200,
+                      fontWeight: FontWeight.w800,
                       fontSize: 16,
                     ),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset(AssetUtils.AppleLogo),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: SvgPicture.asset(AssetUtils.GoogleLogo),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 20),
-                      child: SvgPicture.asset(AssetUtils.FacebookLogo),
-                    ),
-                  ],
+              SizedBox(height: 20,),
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
+                decoration: BoxDecoration(
+                  color: Color(0xffFFFFFF),
+                  border: Border.all(),
+                  borderRadius: BorderRadius.circular(10)
                 ),
-              ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          SvgPicture.asset(
+                              AssetUtils.GoogleLogo,
+                              height: 30,
+                              width: 30,
+                          ),
+                          SizedBox(width: 10,),
+                          Text("Login via Google",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500
+                          ),
+                          ),
+                        ],
+                      ),
+                      Icon(Icons.arrow_forward)
+                    ],
+                  ),
+              )
+              // Padding(
+              //   padding: const EdgeInsets.only(top: 20.0),
+              //   child: Row(
+              //     mainAxisAlignment: MainAxisAlignment.center,
+              //     children: [
+              //       // SvgPicture.asset(AssetUtils.AppleLogo),
+              //
+              //       // Padding(
+              //       //   padding: const EdgeInsets.only(left: 20),
+              //       //   child: SvgPicture.asset(AssetUtils.FacebookLogo),
+              //       // ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         ),

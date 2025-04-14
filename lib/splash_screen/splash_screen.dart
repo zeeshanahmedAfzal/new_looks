@@ -5,6 +5,8 @@ import 'package:new_looks/model/UserModel.dart';
 import 'package:new_looks/screens/DashBoard/dashborad.dart';
 import 'package:new_looks/screens/sign_up/registration_controller.dart';
 import 'package:new_looks/screens/sign_up/registration_screen.dart';
+import 'package:new_looks/screens/start_screens/start_screen.dart';
+import 'package:new_looks/screens/start_screens/start_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../mainScreen.dart';
@@ -24,10 +26,10 @@ class _SplashScreenState extends State<SplashScreen> {
     print("userModel $userModel");
     if(userModel.email.isNotEmpty){
       Get.offAll(() => MainScreen());
-    }else if(UserModel == null){
-      Get.offAll(() => RegistrationScreen());
+    }else if(userModel == null){
+      Get.offAll(() => StartScreen());
     }else{
-      Get.offAll(() => RegistrationScreen());
+      Get.offAll(() => StartScreen());
     }
   }
 
