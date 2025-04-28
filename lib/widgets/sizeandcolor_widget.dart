@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class SelectedContainer extends StatelessWidget {
+class SelectedContainer extends StatefulWidget {
   const SelectedContainer({
     super.key,
     required this.title,
@@ -15,6 +15,27 @@ class SelectedContainer extends StatelessWidget {
   final List<dynamic> list;
 
   @override
+  State<SelectedContainer> createState() => _SelectedContainerState();
+}
+
+class _SelectedContainerState extends State<SelectedContainer> {
+  Set<int> selectedIndexes = {};
+
+  void toggleSelection(int index) {
+    setState(() {
+      if (selectedIndexes.contains(index)) {
+        selectedIndexes.remove(index);
+      } else {
+        selectedIndexes.add(index);
+      }
+    });
+  }
+
+  bool isSelected(int index) {
+    return selectedIndexes.contains(index);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
@@ -23,57 +44,64 @@ class SelectedContainer extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            title,
+            widget.title,
             style: TextStyle(
               color: Colors.grey.shade100,
               fontSize: 14,
             ),
           ),
           const SizedBox(height: 10),
-          const SizedBox(height: 10),
           Wrap(
-            spacing: 8, // Space between circles
-            runSpacing: 8, // Space between rows
-            children: List.generate(list.length, (index) {
-              var item = list[index];
-              return Container(
-                height: 25,
-                width: 25,
-                decoration: BoxDecoration(
-                  color: isColor == true ? item : Colors.white,
-                  borderRadius: BorderRadius.circular(100),
-                  border: Border.all(color: Colors.white),
-                ),
-                child: isColor == true
-                    ? null
-                    : Center(
-                  child: Text(
-                    item ?? '',
-                    maxLines: 1,
-                    overflow: TextOverflow.fade,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
-                    ),
+            spacing: 8,
+            runSpacing: 8,
+            children: List.generate(widget.list.length, (index) {
+              var item = widget.list[index];
+              return GestureDetector(
+                onTap: () => toggleSelection(index),
+                child: Container(
+                  height: 25,
+                  width: 25,
+                  decoration: BoxDecoration(
+                    color: isSelected(index) ? Colors.black26 : widget.isColor == true ? item : Colors.white,
+                    borderRadius: BorderRadius.circular(100),
+                    border: Border.all(color: Colors.white),
+                  ),
+                  child: widget.isColor == true
+                      ? (isSelected(index)
+                      ? Center(
+                    child: Icon(Icons.check, color: Colors.white, size: 20),
+                  )
+                      : null)
+                      : Stack(
+                    children: [
+                      Center(
+                        child: Text(
+                          item.toString(),
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                      Visibility(
+                        visible: isSelected(index),
+                        child: const Center(
+                          child: Icon(Icons.check, color: Colors.black, size: 20),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );
             }),
           ),
-          SizedBox(height:10,)
+          const SizedBox(height: 10),
         ],
       ),
     );
   }
-}
-
-class SizeAndColorList {
-  final List<String>? titleList;
-  final List<Color>? colorList;
-  SizeAndColorList({
-    this.colorList,
-    this.titleList,
-  });
 }

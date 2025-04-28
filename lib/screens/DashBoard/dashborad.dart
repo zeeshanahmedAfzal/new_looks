@@ -46,22 +46,19 @@ class DashBoard extends StatelessWidget {
         ),
         body: SingleChildScrollView(
           child: Column(children: [
-            SizedBox(
-              height: 30,
-            ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                  height: 160,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      border: Border.all(color: CustomColor.black)),
-                  child: SvgPicture.asset(AssetUtils.DashBoardImage),
-                ),
-                SizedBox(
-                  height: 35,
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Container(
+                    height: 160,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        border: Border.all(color: CustomColor.black)),
+                    child: SvgPicture.asset(AssetUtils.DashBoardImage),
+                  ),
                 ),
                 TitleWidget(
                   title: "Feature Product",
