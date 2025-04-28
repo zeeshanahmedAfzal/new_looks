@@ -12,6 +12,10 @@ class Constant {
   static const EMAIL_REGEX =
       r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+";
   static const PASS_REGEX1 = r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{7,}$';
+  static const googleClientId = "150565159439-bmavbntl6bmcg6ck4ucso8u6od7j7rcl.apps.googleusercontent.com";
+  static const serverClientId = "150565159439-bmavbntl6bmcg6ck4ucso8u6od7j7rcl.apps.googleusercontent.com";
+  static const googleClientIdIOS = "150565159439-bmavbntl6bmcg6ck4ucso8u6od7j7rcl.apps.googleusercontent.com";
+  static const gmailScopes = ['email','profile','openid'];
 }
 
 showSnackbar({required String message}) {

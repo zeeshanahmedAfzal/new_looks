@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:new_looks/model/UserModel.dart';
 import 'package:new_looks/screens/DashBoard/dashborad.dart';
 import 'package:new_looks/screens/login/login_scrren.dart';
@@ -20,6 +22,7 @@ class RegistrationController extends GetxController {
   RxString businessName = "".obs;
   RxString contactNumber = "".obs;
   RxBool isLoading = false.obs;
+  RxBool isLoggingWithGoogle = false.obs;
 
   RxString emailError = "".obs;
   RxString firstNameError = "".obs;
@@ -154,7 +157,91 @@ class RegistrationController extends GetxController {
 
 
 
+  signUpWithGoogle(String type) async {
+    print("started");
+    isLoggingWithGoogle(true);
 
+    final FirebaseApp base = await Firebase.app();
+    print("firebase name: ${base.name}");
+    print("apiKey: ${base.options.apiKey}");
+
+    final GoogleSignIn googleSignIn = getGoogleSignInInstance();
+    await googleSignIn.signOut(); // Ensure fresh login
+
+    GoogleSignInAccount? acc;
+    GoogleSignInAuthentication? auth;
+
+    try {
+      acc = await googleSignIn.signIn();
+      if (acc == null) throw Exception("User cancelled Google Sign-In");
+      auth = await acc.authentication;
+    } catch (e) {
+      print("Google Sign-In Error: $e");
+      isLoggingWithGoogle(false);
+      showSnackbar(
+        message: "Something went wrong,\nPlease try to $type by an email",
+      );
+      return;
+    }
+
+    if (auth == null) {
+      isLoggingWithGoogle(false);
+      showSnackbar(
+        message: "Something went wrong,\nPlease try to $type by an email",
+      );
+      return;
+    }
+
+    try {
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: auth.accessToken,
+        idToken: auth.idToken,
+      );
+
+      UserCredential userCredential =
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      final firebaseUser = userCredential.user;
+
+      if (firebaseUser == null) throw Exception("Google Sign-In failed");
+
+      print("Google user authenticated: ${firebaseUser.uid}");
+
+      // Save or update user in your backend/local
+      await saveOrUpdateUser(
+        id: firebaseUser.uid,
+        firstName: acc.displayName?.split(' ').first ?? '',
+        lastName: acc.displayName?.split(' ').last ?? '',
+        email: acc.email,
+        isSeller: false, // or add logic if needed
+        contactNumber: '', // optional, can be collected later
+        businessName: '', // optional
+      );
+
+      showSnackbar(message: "Signed in with Google successfully");
+      Get.offAll(() => const MainScreen());
+
+    } catch (e) {
+      print("Firebase Google Sign-In Error: $e");
+      showSnackbar(message: "Authentication failed. Try again.");
+    } finally {
+      isLoggingWithGoogle(false);
+    }
+  }
+
+
+  GoogleSignIn getGoogleSignInInstance() {
+    print("client id id ${Constant.googleClientId}");
+    var clientId = Constant.googleClientId;
+    print("is clientid = $clientId");
+    GoogleSignIn _googleSignIn = GoogleSignIn(
+      clientId: clientId,
+      serverClientId: Constant.serverClientId,
+      scopes: Constant.gmailScopes,
+      // forceCodeForRefreshToken: true,
+    );
+    return _googleSignIn;
+  }
 
 
     saveOrUpdateUser({required String firstName,required String lastName,

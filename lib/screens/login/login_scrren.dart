@@ -216,7 +216,7 @@ class LoginController extends GetxController{
       UserCredential userCredential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email, password: password);
 
-      print(userCredential.toString());
+      print("printing credentials : ${userCredential.toString()}");
       print(userCredential.toString());
       var uid = userCredential.user?.uid;
 

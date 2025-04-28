@@ -8,6 +8,7 @@ import '../../constants/colors.dart';
 import '../../widgets/AssetImages.dart';
 import '../../widgets/custom_header.dart';
 import '../../profile/profile_screen.dart';
+import '../cart/user_cart.dart';
 import 'widget/featured_product.dart';
 import 'widget/recommendation.dart';
 import 'widget/title_widget.dart';
@@ -18,6 +19,7 @@ class DashBoard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var controller = Get.put(DashBoardController());
+    var controllers = Get.put(UserCartController());
     controller.getFeaturedProducts();
     return Scaffold(
       backgroundColor: Color(0xffffffff),

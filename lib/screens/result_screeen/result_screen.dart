@@ -5,6 +5,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:new_looks/isar_services/services.dart';
 import 'package:new_looks/screens/admin/product_model.dart';
+import 'package:new_looks/screens/cart/user_cart.dart';
 import '../../constants/colors.dart';
 import '../../widgets/AssetImages.dart';
 import '../../widgets/custom_button.dart';
@@ -131,6 +132,8 @@ class _ResultGridState extends State<ResultGrid> {
 
   @override
   Widget build(BuildContext context) {
+    // var cartController = Get.find<UserCartController>();
+    var cartController = Get.put(UserCartController(),tag: "result");
     return GridView.builder(
         shrinkWrap: true,
         primary: false,
@@ -247,7 +250,7 @@ class _ResultGridState extends State<ResultGrid> {
                                   defaultPadding: true,
                                   horizontalPadding: 40,
                                   icon: GestureDetector(
-                                    onTap:(){
+                                    onTap:() async {
                                       var cartData = obj;
                                       if (cartData != null) {
                                         cartData.count = (cartData.count ?? 0) - 1; // Increase count safely
@@ -261,7 +264,8 @@ class _ResultGridState extends State<ResultGrid> {
                                           });
                                           IsarService().deleteProduct(obj?.productId??'');
                                         }else{
-                                          IsarService().decreaseCount(obj?.productId ?? '');
+                                       await  IsarService().decreaseCount(obj?.productId ?? '');
+                                       await cartController.init();
                                         }
                                       }
                                     },
@@ -274,7 +278,7 @@ class _ResultGridState extends State<ResultGrid> {
                                     ),
                                   ),
                                   icon2: GestureDetector(
-                                    onTap:(){
+                                    onTap:() async {
                                       var cartData = obj;
                                       print(cartData?.count);
                                       if (cartData != null) {
@@ -282,7 +286,8 @@ class _ResultGridState extends State<ResultGrid> {
                                         setState(() {
                                           productCount = cartData.count!;
                                         });
-                                        IsarService().increaseCount(obj?.productId ?? ''); // Update in database
+                                      await IsarService().increaseCount(obj?.productId ?? ''); // Update in database
+                                      await cartController.init();
                                       }
                                     },
                                     child: Align(
